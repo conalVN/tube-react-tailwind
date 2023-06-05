@@ -9,7 +9,6 @@ import formatView from "../ultis/formatView";
 
 function Card({ data }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [thumbnailChannel, setThumbnailChannel] = useState("");
   useEffect(() => {
     fetch(

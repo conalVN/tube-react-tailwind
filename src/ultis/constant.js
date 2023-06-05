@@ -6,13 +6,36 @@ export const menu = [
   },
   {
     path: "/shorts",
-    name: "Short",
+    name: "Shorts",
     icon: "web_stories",
   },
   {
     path: "/feed/subscriptions",
     name: "Kênh đăng ký",
     icon: "subscriptions",
+  },
+];
+
+export const menumini = [
+  {
+    path: "",
+    name: "Trang chủ",
+    icon: "home",
+  },
+  {
+    path: "",
+    name: "Shorts",
+    icon: "web_stories",
+  },
+  {
+    path: "",
+    name: "Kênh đăng ký",
+    icon: "subscriptions",
+  },
+  {
+    path: "",
+    name: "Thư viện",
+    icon: "video_library",
   },
 ];
 
@@ -116,4 +139,12 @@ export const TermsOfService = [
     path: "/new",
     name: "Thử các tính năng mới",
   },
+];
+
+export const shortIcon = [
+  { icon: "thumb_up", type: "" },
+  { icon: "thumb_down", type: "" },
+  { icon: "comment", type: "" },
+  { icon: "share", type: "" },
+  { icon: "more_horiz", type: "" },
 ];

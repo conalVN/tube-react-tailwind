@@ -2,9 +2,10 @@ const path = {
   LAYOUT: "",
   HOME: "",
   DETAIL: "watch",
-  SHORT: "short",
+  SHORT: "shorts",
   SUBSCRIBE: "feed/subscribes",
-  LIBRARY: "/feed/library",
+  LIBRARY: "feed/library",
+  SEARCH: "search/:param",
 
   STAR: "*",
 };

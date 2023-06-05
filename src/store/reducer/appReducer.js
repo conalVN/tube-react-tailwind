@@ -4,6 +4,8 @@ const initState = {
   isLogin: false,
   infoUser: null,
   statusSubscribe: false,
+  isToggle: false,
+  isShowMenu: false,
 };
 
 const appReducer = (state = initState, action) => {
@@ -28,6 +30,16 @@ const appReducer = (state = initState, action) => {
       return {
         ...state,
         statusSubscribe: action.status,
+      };
+    case actionTypes.TOGGLE_MENU:
+      return {
+        ...state,
+        isToggle: action.flag,
+      };
+    case actionTypes.SHOW_MENU:
+      return {
+        ...state,
+        isShowMenu: action.flag,
       };
     default:
       return state;

@@ -2,6 +2,16 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase";
 import actionTypes from "./actionTypes";
 
+export const toggle = (flag) => ({
+  type: actionTypes.TOGGLE_MENU,
+  flag,
+});
+
+export const showMenu = (flag) => ({
+  type: actionTypes.SHOW_MENU,
+  flag,
+});
+
 export const login = (flag) => async (dispatch) => {
   try {
     signInWithPopup(auth, provider).then((data) => {

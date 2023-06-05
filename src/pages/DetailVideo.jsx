@@ -8,12 +8,13 @@ import {
   CommentThreads,
   DescriptionVideo,
   RelatedVideo,
+  SidebarFlex,
 } from "../components";
 import * as actions from "../store/action";
 import formatSubscribers from "../ultis/formatSubscribers";
 
 function DetailVideo() {
-  const { statusSubscribe } = useSelector((state) => state.app);
+  const { statusSubscribe, isShowMenu } = useSelector((state) => state.app);
   const { detail, comments } = useSelector((state) => state.video);
   const { detailChannel } = useSelector((state) => state.channel);
   const location = useLocation();
@@ -23,9 +24,20 @@ function DetailVideo() {
   useEffect(() => {
     dispatch(actions.getDetailVideo(id));
     dispatch(actions.getComment(id));
+    dispatch(actions.getRelatedVideo(id));
   }, [id]);
   return (
-    <div className="flex gap-8 px-10 pt-4 w-full h-full overflow-y-auto">
+    <div className="flex gap-8 px-10 py-4 w-full h-full overflow-y-auto">
+      <section
+        className={`fixed top-0 bottom-0 left-0 right-0 bg-alpha-3 ${
+          isShowMenu ? "block" : "hidden"
+        }`}
+        onClick={() => {
+          dispatch(actions.showMenu(false));
+        }}
+      >
+        <SidebarFlex />
+      </section>
       <div className="flex-play w-full h-full">
         <div className="flex flex-col gap-2">
           <iframe
@@ -83,8 +95,8 @@ function DetailVideo() {
           <CommentThreads data={comments} />
         </div>
       </div>
-      <div className="flex-card w-full border border-blue-500 h-[2000px]">
-        {/* <RelatedVideo data={} /> */}
+      <div className="flex-card w-full h-full">
+        <RelatedVideo />
       </div>
     </div>
   );

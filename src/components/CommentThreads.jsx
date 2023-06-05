@@ -4,12 +4,11 @@ import { useSelector } from "react-redux";
 import Button from "./Button.jsx";
 
 function CommentThreads({ data }) {
-  const { userInfo } = useSelector((state) => state.app);
+  const { infoUser } = useSelector((state) => state.app);
   const [comment, setComment] = useState("");
   const ref = useRef();
   function handleResize() {
     ref.current.style.height = ref.current.scrollHeight + "px";
-    console.log(comment);
     if (!comment) ref.current.style.height = "40px";
   }
   function handleComfirm() {}
@@ -17,9 +16,9 @@ function CommentThreads({ data }) {
     <section className="w-full h-full mt-4">
       <div className="w-full h-full flex gap-4">
         <img
-          src={userInfo?.photoURL}
-          alt={userInfo?.displayName}
-          className="w-12 h-12 object-cover rounded-full overflow-hidden"
+          src={infoUser?.photoURL}
+          alt={infoUser?.displayName}
+          className="flex-none w-12 h-12 object-cover rounded-full overflow-hidden"
         />
         <div className="w-full h-auto">
           <textarea
@@ -56,9 +55,9 @@ function CommentThreads({ data }) {
           </div>
         </div>
       </div>
-      <div className="">
+      <div className="flex flex-col gap-4">
         {data?.map((item) => {
-          return <Comment data={item} key={item?.id} />;
+          return <Comment data={item?.snippet} key={item?.id} />;
         })}
       </div>
     </section>

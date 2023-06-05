@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import logo from "../source/images/YouTube-Logo.wine.svg";
 import { SearchInput, Button } from "../components";
 import * as actions from "../store/action";
+import { Link, useLocation } from "react-router-dom";
 
 function Header() {
-  const { isLogin, infoUser } = useSelector((state) => state.app);
+  const { infoUser, isToggle } = useSelector((state) => state.app);
   const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
+  const location = useLocation();
   function handleLogin() {
     dispatch(actions.login(true));
   }
@@ -16,23 +17,31 @@ function Header() {
     <header className="flex items-center justify-between">
       <section className="flex-side flex items-center overflow-hidden">
         <span
-          className="flex items-center justify-center pl-2 cursor-pointer"
-          onClick={() => setShow(!show)}
+          className="flex items-center justify-center pl-2 cursor-pointer select-none"
+          onClick={() => {
+            isToggle
+              ? dispatch(actions.toggle(false))
+              : dispatch(actions.toggle(true));
+            location.pathname.includes("/watch") &&
+              dispatch(actions.showMenu(true));
+          }}
         >
           <span className="material-symbols-outlined">menu</span>
         </span>
         <span className="flex items-center justify-center w-[120px] py-4 pl-2 max-h-[56px] cursor-pointer">
-          <img
-            src={logo}
-            alt="logo"
-            className="w-full h-full object-cover aspect-auto"
-          />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="logo"
+              className="w-full h-full object-cover aspect-auto"
+            />
+          </Link>
         </span>
       </section>
       <section className="flex-1">
         <SearchInput />
       </section>
-      {!isLogin ? (
+      {!sessionStorage.getItem("access-token") ? (
         <Button
           title="Sign In"
           iconLeft="account_circle"

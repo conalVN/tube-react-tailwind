@@ -1,9 +1,18 @@
 import { memo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import HistoriesSearch from "./HistoriesSearch";
+import * as actions from "../store/action";
 
 function SearchInput() {
   const [keyword, setKeyword] = useState("");
   const [showHistory, setShowHistory] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  function handleSearch() {
+    dispatch(actions.search(keyword));
+    navigate(`/search/${keyword}`);
+  }
   return (
     <div className="flex items-center justify-center gap-2">
       <label className="relative flex-labelInput flex items-center border border-gray-200 rounded-full">
@@ -25,7 +34,10 @@ function SearchInput() {
             <span className="material-symbols-outlined">close</span>
           </span>
         )}
-        <span className="p-2 flex items-center justify-center w-20 bg-gray-100 hover:bg-gray-200 rounded-r-full cursor-pointer">
+        <span
+          className="p-2 flex items-center justify-center w-20 bg-gray-100 hover:bg-gray-200 rounded-r-full cursor-pointer"
+          onClick={handleSearch}
+        >
           <span className="material-symbols-outlined">search</span>
         </span>
       </label>

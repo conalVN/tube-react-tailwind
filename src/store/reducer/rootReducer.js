@@ -10,14 +10,19 @@ const comonConfig = {
   storage: storage,
   stateReconsiler: autoMergeLevel2,
 };
+const appConfig = {
+  ...comonConfig,
+  key: "yt-app",
+  whilelist: ["infoUser"],
+};
 const videoConfig = {
   ...comonConfig,
-  key: "yt",
+  key: "yt-video",
   whilelist: [""],
 };
 
 const rootReducer = combineReducers({
-  app: appReducer,
+  app: persistReducer(appConfig, appReducer),
   video: persistReducer(videoConfig, videoReducer),
   channel: channelReducer,
 });
