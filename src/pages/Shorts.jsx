@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/iframe-has-title */
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { shortIcon } from "../ultis/constant";
 import * as actions from "../store/action";
@@ -10,29 +11,29 @@ function Shorts() {
   const [curShort, setCurShort] = useState(
     shorts[curIndex] ? shorts[curIndex] : shorts[0]
   );
-  const handleScrollNextPage = (index) => {
-    if (index < shorts?.length - 1) {
-      setCurShort(shorts[index + 1]);
-      dispatch(actions.setCurIndex(index + 1));
-    } else {
-      alert("Bạn đã xem hết shorts");
-    }
-  };
-  const handleScrollPrevPage = (index) => {
-    if (index > 0) {
-      setCurShort(shorts[index - 1]);
-      dispatch(actions.setCurIndex(index - 1));
-    }
-  };
-  window.onwheel = function (e) {
-    if (e.deltaY < 0) {
-      console.log(`scroll up`, curIndex);
-      handleScrollPrevPage(curIndex);
-    } else {
-      console.log(`scroll down`, curIndex);
-      handleScrollNextPage(curIndex);
-    }
-  };
+  useLayoutEffect(() => {
+    const handleScrollNextPage = (index) => {
+      if (index < shorts?.length - 1) {
+        setCurShort(shorts[index + 1]);
+        dispatch(actions.setCurIndex(index + 1));
+      } else {
+        alert("Bạn đã xem hết shorts");
+      }
+    };
+    const handleScrollPrevPage = (index) => {
+      if (index > 0) {
+        setCurShort(shorts[index - 1]);
+        dispatch(actions.setCurIndex(index - 1));
+      }
+    };
+    window.onwheel = function (e) {
+      if (e.deltaY < 0) {
+        handleScrollPrevPage(curIndex);
+      } else {
+        handleScrollNextPage(curIndex);
+      }
+    };
+  }, [curIndex]);
   return (
     <div className="w-full h-full">
       <div className="flex justify-center items-center gap-2">

@@ -1,14 +1,21 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { TermsOfService, menu, menu2, menu3, options } from "../ultis/constant";
 import { Menu, Button } from "../components";
+import * as actions from "../store/action";
 
 function Sidebar() {
+  const { accessToken } = useSelector((state) => state.app);
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(actions.getSubscriptions())
+  // }, [accessToken])
   return (
     <aside className="w-full h-full px-4">
       <Menu data={menu} />
       <Menu data={menu2} playlistUser={[]} isMore />
-      {true ? (
+      {!accessToken ? (
         <div className="w-full p-4 border-b border-gray-200">
           <p className="mb-2 text-sm">
             Sign in to like videos, comment and subscribe

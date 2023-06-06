@@ -1,6 +1,7 @@
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase";
 import actionTypes from "./actionTypes";
+import { getSubscriptions } from "./channel";
 
 export const toggle = (flag) => ({
   type: actionTypes.TOGGLE_MENU,
@@ -14,22 +15,31 @@ export const showMenu = (flag) => ({
 
 export const login = (flag) => async (dispatch) => {
   try {
-    signInWithPopup(auth, provider).then((data) => {
-      console.log(data?.user);
-      if (data?.user) {
-        sessionStorage.setItem("access-token", data?.user?.accessToken);
+    signInWithPopup(auth, provider)
+      .then((data) => {
+        if (data?.user) {
+          sessionStorage.setItem("access-token", data?.user?.accessToken);
+          dispatch({
+            type: actionTypes.LOGIN_SUCCESS,
+            flag,
+            infoUser: data?.user,
+            accessToken: data?.user?.accessToken,
+          });
+        } else {
+          dispatch({
+            type: actionTypes.LOGIN_FAIL,
+            flag: false,
+          });
+        }
+      })
+      .catch((err) => {
         dispatch({
-          type: actionTypes.LOGIN_SUCCESS,
-          flag,
-          infoUser: data?.user,
-        });
-      } else {
-        dispatch({
-          type: actionTypes.LOGIN_SUCCESS,
+          type: actionTypes.LOGIN_FAIL,
           flag: false,
+          accessToken: null,
+          infoUser: null,
         });
-      }
-    });
+      });
   } catch (error) {
     dispatch({
       type: actionTypes.LOGIN_FAIL,
@@ -43,6 +53,7 @@ export const logout = () => async (dispatch) => {
   dispatch({
     type: actionTypes.LOGOUT,
   });
+  sessionStorage.removeItem("access-token");
 };
 
 export const checkSubcribe = (channelId) => async (dispatch) => {

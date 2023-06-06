@@ -49,6 +49,54 @@ export const getPopularVideo = () => async (dispatch) => {
   }
 };
 
+export const getPopularVideoWithToken = (token) => async (dispatch) => {
+  try {
+    fetch(
+      `${process.env.REACT_APP_BASE_URL}/v3/videos?${new URLSearchParams({
+        key: process.env.REACT_APP_API_KEY,
+        part: "snippet,contentDetails,statistics",
+        chart: "mostPopular",
+        pageToken: token,
+        regionCode: "VN",
+        maxResults: 50,
+      })}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          dispatch({
+            type: actionTypes.GET_VIDEOS_WITH_TOKEN_SUCCESS,
+            payload: {
+              ...data,
+              items: data?.items?.filter(
+                (item) => item?.contentDetails?.duration?.length > 5
+              ),
+              shorts: data?.items?.filter(
+                (item) => item?.contentDetails?.duration?.length <= 5
+              ),
+            },
+          });
+        } else {
+          dispatch({
+            type: actionTypes.GET_VIDEOS_FAIL,
+            payload: data,
+          });
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.GET_VIDEOS_FAIL,
+          payload: err,
+        });
+      });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_VIDEOS_FAIL,
+      payload: error,
+    });
+  }
+};
+
 export const getDetailVideo = (id) => async (dispatch) => {
   try {
     fetch(

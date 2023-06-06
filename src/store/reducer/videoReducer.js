@@ -8,6 +8,7 @@ const initState = {
   videosSerch: null,
   relatedVideos: null,
   nextPageToken: null,
+  prevPageToken: null,
   curIndex: 0,
 };
 const videoReducer = (state = initState, action) => {
@@ -23,6 +24,19 @@ const videoReducer = (state = initState, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    case actionTypes.GET_VIDEOS_WITH_TOKEN_SUCCESS:
+      return {
+        ...state,
+        videos: [...state.videos, ...action.payload.items] || null,
+        shorts: [...state.shorts, ...action.payload.shorts] || null,
+        nextPageToken: action.payload.nextPageToken || null,
+        prevPageToken: action.payload.prevPageToken,
+      };
+    case actionTypes.GET_VIDEOS_WITH_TOKEN_FAIL:
+      return {
+        ...state,
+        err: action.payload,
       };
     case actionTypes.GET_DETAIL_VIDEO_SUCCESS:
       return {

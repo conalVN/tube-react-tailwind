@@ -64,3 +64,33 @@ export const getDetailChannel = (id) => async (dispatch) => {
 //     });
 //   }
 // };
+
+export const getSubscriptions = () => async (dispatch, getState) => {
+  try {
+    fetch(
+      `${process.env.REACT_APP_BASE_URL}/v3/subscriptions?${new URLSearchParams(
+        {
+          key: process.env.REACT_APP_API_KEY,
+          part: "snippet",
+          mine: true,
+        }
+      )}`,
+      {
+        Authorization: "Bearer " + sessionStorage.getItem("access-token"),
+        "Content-Type": "application/json",
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    dispatch({
+      type: "",
+      payload: error,
+    });
+  }
+};

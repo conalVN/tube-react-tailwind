@@ -6,7 +6,7 @@ import * as actions from "../store/action";
 import { Link, useLocation } from "react-router-dom";
 
 function Header() {
-  const { infoUser, isToggle } = useSelector((state) => state.app);
+  const { infoUser, accessToken, isToggle } = useSelector((state) => state.app);
   const dispatch = useDispatch();
   const location = useLocation();
   function handleLogin() {
@@ -41,7 +41,7 @@ function Header() {
       <section className="flex-1">
         <SearchInput />
       </section>
-      {!sessionStorage.getItem("access-token") ? (
+      {!accessToken ? (
         <Button
           title="Sign In"
           iconLeft="account_circle"

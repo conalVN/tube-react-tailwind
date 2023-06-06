@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { memo, useEffect, useState } from "react";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import * as actions from "../store/action";
@@ -41,11 +41,16 @@ function Card({ data }) {
         </div>
         <div className="flex gap-2 mt-3">
           <div className="flex-none w-9 h-9 rounded-full overflow-hidden">
-            <img
-              src={thumbnailChannel}
-              alt="avatar"
-              className="w-full h-full object-cover"
-            />
+            <Link
+              to={`/${data?.snippet?.channelId}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={thumbnailChannel}
+                alt="avatar"
+                className="w-full h-full object-cover"
+              />
+            </Link>
           </div>
           <div className="pr-4">
             <h3 className="line-clamp-2 font-medium">{data?.snippet?.title}</h3>

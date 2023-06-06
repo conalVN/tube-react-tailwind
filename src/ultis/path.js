@@ -3,9 +3,11 @@ const path = {
   HOME: "",
   DETAIL: "watch",
   SHORT: "shorts",
-  SUBSCRIBE: "feed/subscribes",
+  SUBS: "feed/subscriptions",
   LIBRARY: "feed/library",
+  HISTORY: "feed/history",
   SEARCH: "search/:param",
+  CHANNEL: "/:idChannel",
 
   STAR: "*",
 };

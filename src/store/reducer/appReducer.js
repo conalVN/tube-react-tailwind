@@ -1,6 +1,7 @@
 import actionTypes from "../action/actionTypes";
 
 const initState = {
+  accessToken: null,
   isLogin: false,
   infoUser: null,
   statusSubscribe: false,
@@ -15,16 +16,21 @@ const appReducer = (state = initState, action) => {
         ...state,
         isLogin: action.flag,
         infoUser: action.infoUser,
+        accessToken: action.accessToken,
       };
     case actionTypes.LOGIN_FAIL:
       return {
         ...state,
         isLogin: action.flag,
+        infoUser: null,
+        accessToken: null,
       };
     case actionTypes.LOGOUT:
       return {
         ...state,
         isLogin: false,
+        accessToken: null,
+        infoUser: null,
       };
     case actionTypes.SUB_CHANNEL:
       return {
