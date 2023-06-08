@@ -13,7 +13,6 @@ function Channel() {
   useEffect(() => {
     dispatch(actions.getDetailChannel(idChannel));
   }, [idChannel]);
-  console.log(detailChannel);
   return (
     <div className="w-full h-full">
       <div className="h-[25vh] border border-red-500">

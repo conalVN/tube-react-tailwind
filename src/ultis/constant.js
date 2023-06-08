@@ -148,3 +148,77 @@ export const shortIcon = [
   { icon: "share", type: "" },
   { icon: "more_horiz", type: "" },
 ];
+
+export const accountLog = [
+  {
+    path: "/channel",
+    name: "Kênh của bạn",
+    icon: "person_book",
+  },
+  {
+    path: "studio.youtube.com/channel",
+    name: "Youtube Studio",
+    icon: "sound_sampler",
+  },
+  {
+    path: "switch",
+    name: "Chuyển đổi tài khoản",
+    icon: "switch_account",
+    subs: true,
+  },
+  {
+    path: "logout",
+    name: "Đăng xuất",
+    icon: "logout",
+  },
+];
+
+export const accountSettings = [
+  {
+    path: "a",
+    name: "Giao diện: Sáng",
+    icon: "mode_night",
+    subs: true,
+  },
+  {
+    path: "b",
+    name: "Ngôn ngữ: Tiếng Việt",
+    icon: "translate",
+    subs: true,
+  },
+  {
+    path: "c",
+    name: "Chế độ hạn chế: Đã tắt",
+    icon: "admin_panel_settings",
+    subs: true,
+  },
+  {
+    path: "d",
+    name: "Địa điểm: Việt Nam",
+    icon: "language",
+    subs: true,
+  },
+  {
+    path: "f",
+    name: "Phím tắt",
+    icon: "keyboard_alt",
+  },
+];
+
+export const settings = [
+  {
+    path: "/account",
+    name: "Cài đặt",
+    icon: "settings",
+  },
+  {
+    path: "chat",
+    name: "Trợ giúp",
+    icon: "help",
+  },
+  {
+    path: "form",
+    name: "Gửi ý kiến phản hồi",
+    icon: "sms_failed",
+  },
+];

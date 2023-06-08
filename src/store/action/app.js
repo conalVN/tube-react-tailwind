@@ -1,7 +1,6 @@
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase";
 import actionTypes from "./actionTypes";
-import { getSubscriptions } from "./channel";
 
 export const toggle = (flag) => ({
   type: actionTypes.TOGGLE_MENU,
@@ -22,7 +21,10 @@ export const login = (flag) => async (dispatch) => {
           dispatch({
             type: actionTypes.LOGIN_SUCCESS,
             flag,
-            infoUser: data?.user,
+            infoUser: {
+              displayName: data?.user?.displayName,
+              photoURL: data?.user?.photoURL,
+            },
             accessToken: data?.user?.accessToken,
           });
         } else {
@@ -54,22 +56,5 @@ export const logout = () => async (dispatch) => {
     type: actionTypes.LOGOUT,
   });
   sessionStorage.removeItem("access-token");
-};
-
-export const checkSubcribe = (channelId) => async (dispatch) => {
-  try {
-    // fetch(`${process.env.REACT_APP_BASE_URL}/v3/subscriptions`, {
-    //   part: "snippet",
-    //   forChannelId: channelId,
-    //   mine: true,
-    //   headers: {
-    //     Authentication: `Bearer ${sessionStorage.getItem("access-token")}`,
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data))
-    //   .catch((err) => console.log(err));
-  } catch (error) {
-    console.log(error);
-  }
+  localStorage.removeItem("");
 };
